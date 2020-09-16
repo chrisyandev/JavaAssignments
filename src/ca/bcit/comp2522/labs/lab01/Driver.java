@@ -23,8 +23,8 @@ public class Driver {
 
         System.out.println("\n============================\n");
 
-        final int numOfRaces = 1000;
-        final int raceLength = 100;
+        final int numOfRaces = 100;
+        final int raceLength = 1000;
         System.out.println(simulateRaces(numOfRaces, raceLength));
     }
 
@@ -47,8 +47,9 @@ public class Driver {
                 hareWins++;
             }
         }
-        return "After " + numOfRaces + " races, Tortoise won "
-                + tortoiseWins + " times. Hare won " + hareWins + " times.";
+        return "After " + numOfRaces + " races, each race being "
+                + raceLength + " units long, Tortoise won " + tortoiseWins
+                + " times. Hare won " + hareWins + " times.";
     }
 
     /* Answers
@@ -56,11 +57,11 @@ public class Driver {
             The tortoise's current position is: 100
             The hare's current position is: -71
 
-        4b) Tortoise wins: 100
-            Hare wins: 0
+        4b) Tortoise wins: 99
+            Hare wins: 1
 
-        4c) Tortoise wins: 993
-            Hare wins: 7
+        4c) Tortoise wins: 100
+            Hare wins: 0
 
         5) Tortoise wins the most.
      */
