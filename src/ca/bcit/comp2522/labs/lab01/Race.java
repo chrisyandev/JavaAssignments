@@ -65,28 +65,43 @@ public class Race {
         ticks = 0;
     }
 
-    /** Simulates the race. */
+    /**
+     * Simulates the race.
+     * @return name of the winner
+     */
     public String simulateRace() {
         reset();
         return race();
     }
 
-    /** Gets the Tortoise instance. */
+    /**
+     * Gets the Tortoise instance.
+     * @return instance of Tortoise
+     */
     public Tortoise getTortoise() {
         return tortoise;
     }
 
-    /** Gets the Hare instance. */
+    /**
+     * Gets the Hare instance.
+     * @return instance of Hare
+     */
     public Hare getHare() {
         return hare;
     }
 
-    /** Gets the race distance. */
+    /**
+     * Gets the race distance.
+     * @return distance of race in units
+     */
     public int getLength() {
         return length;
     }
 
-    /** Gets the race duration. */
+    /**
+     * Gets the race duration.
+     * @return duration of race in ticks
+     */
     public int getTicks() {
         return ticks;
     }
