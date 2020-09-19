@@ -290,6 +290,9 @@ public class Guppy {
             return false;
         }
         Guppy g = (Guppy) o;
+        if (!(identificationNumber == g.getIdentificationNumber())) {
+            return false;
+        }
         return this.hashCode() == g.hashCode();
     }
 }
