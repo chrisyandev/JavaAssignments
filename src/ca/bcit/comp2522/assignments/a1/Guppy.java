@@ -88,7 +88,7 @@ public class Guppy {
     public Guppy(final String newGenus, final String newSpecies,
                  final int newAgeInWeeks, final boolean newIsFemale,
                  final int newGenerationNumber,
-                 double newHealthCoefficient) {
+                 final double newHealthCoefficient) {
         numberOfGuppiesBorn++;
         identificationNumber = numberOfGuppiesBorn;
         genus = capitalize(newGenus);
@@ -98,12 +98,12 @@ public class Guppy {
         isAlive = true;
         generationNumber = (newGenerationNumber < 0) ? 1 : newGenerationNumber;
         if (newHealthCoefficient < MINIMUM_HEALTH_COEFFICIENT) {
-            newHealthCoefficient = MINIMUM_HEALTH_COEFFICIENT;
+            healthCoefficient = MINIMUM_HEALTH_COEFFICIENT;
+        } else if (newHealthCoefficient > MAXIMUM_HEALTH_COEFFICIENT) {
+            healthCoefficient = MAXIMUM_HEALTH_COEFFICIENT;
+        } else {
+            healthCoefficient = newHealthCoefficient;
         }
-        if (newHealthCoefficient > MAXIMUM_HEALTH_COEFFICIENT) {
-            newHealthCoefficient = MAXIMUM_HEALTH_COEFFICIENT;
-        }
-        healthCoefficient = newHealthCoefficient;
     }
 
     private String capitalize(final String s) {
@@ -196,30 +196,30 @@ public class Guppy {
 
     /**
      * Sets guppy's age in weeks.
-     * @param ageInWeeks new age in weeks
+     * @param newAgeInWeeks new age in weeks
      */
-    public void setAgeInWeeks(final int ageInWeeks) {
-        if (ageInWeeks >= 0 && ageInWeeks <= MAXIMUM_AGE_IN_WEEKS) {
-            this.ageInWeeks = ageInWeeks;
+    public void setAgeInWeeks(final int newAgeInWeeks) {
+        if (newAgeInWeeks >= 0 && newAgeInWeeks <= MAXIMUM_AGE_IN_WEEKS) {
+            ageInWeeks = newAgeInWeeks;
         }
     }
 
     /**
      * Sets guppy's alive state.
-     * @param isAlive new alive state
+     * @param newIsAlive new alive state
      */
-    public void setIsAlive(final boolean isAlive) {
-        this.isAlive = isAlive;
+    public void setIsAlive(final boolean newIsAlive) {
+        isAlive = newIsAlive;
     }
 
     /**
      * Sets guppy's health coefficient.
-     * @param healthCoefficient new health coefficient
+     * @param newHealthCoefficient new health coefficient
      */
-    public void setHealthCoefficient(final double healthCoefficient) {
-        if (healthCoefficient >= MINIMUM_HEALTH_COEFFICIENT
-                && healthCoefficient <= MAXIMUM_HEALTH_COEFFICIENT) {
-            this.healthCoefficient = healthCoefficient;
+    public void setHealthCoefficient(final double newHealthCoefficient) {
+        if (newHealthCoefficient >= MINIMUM_HEALTH_COEFFICIENT
+                && newHealthCoefficient <= MAXIMUM_HEALTH_COEFFICIENT) {
+            healthCoefficient = newHealthCoefficient;
         }
     }
 
@@ -233,15 +233,19 @@ public class Guppy {
      * @return amount of water in ML
      */
     public double getVolumeNeeded() {
-        if (ageInWeeks < 10) {
+        final int ageRange1 = 10;
+        final int ageRange2 = 31;
+        final int ageRange3 = 51;
+        final double ageFactor = 1.5;
+        if (ageInWeeks < ageRange1) {
             return MINIMUM_WATER_VOLUME_ML;
         }
-        if (ageInWeeks < 31) {
+        if (ageInWeeks < ageRange2) {
             return MINIMUM_WATER_VOLUME_ML
                     * ageInWeeks / YOUNG_FISH_AGE_IN_WEEKS;
         }
-        if (ageInWeeks < 51) {
-            return MINIMUM_WATER_VOLUME_ML * 1.5;
+        if (ageInWeeks < ageRange3) {
+            return MINIMUM_WATER_VOLUME_ML * ageFactor;
         }
         return 0.0;
     }
