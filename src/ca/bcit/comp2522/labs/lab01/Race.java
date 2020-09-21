@@ -35,6 +35,11 @@ public class Race {
         ticks = 0;
     }
 
+    /*
+    Picks either tortoise or hare at random to move. Repeatedly does this
+    until one of their positions is greater than or equal to the length
+    of the race.
+     */
     private String race() {
         do {
             final int tortoiseSide = 0;

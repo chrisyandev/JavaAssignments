@@ -106,6 +106,7 @@ public class Guppy {
         }
     }
 
+    /* Capitalizes the first letter of a string. */
     private String capitalize(final String s) {
         if (s.length() == 1) {
             return s.toUpperCase();

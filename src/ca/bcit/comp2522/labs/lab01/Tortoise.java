@@ -18,6 +18,7 @@ public class Tortoise {
         position = 0;
     }
 
+    /* Generates a random integer. */
     private int randNum(final int bound) {
         Random rand = new Random();
         return rand.nextInt(bound);
