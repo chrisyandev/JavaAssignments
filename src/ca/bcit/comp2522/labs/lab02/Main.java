@@ -2,6 +2,27 @@ package ca.bcit.comp2522.labs.lab02;
 
 public final class Main {
 
+    /*
+    Part II Answers
+        1) IncessantSpeakable was created for animals that could loudSpeak(),
+        such as a Poodle. We have separate interfaces because some animals
+        can speak() but not loudSpeak(). The reason IncessantSpeakable
+        extends Speakable is because if an animal can loudSpeak(), it can also
+        speak(). Structuring it like this allows Poodle to only need to
+        implement IncessantSpeakable, and it allows for an efficient
+        way to check if this animal can loudSpeak() using instanceof.
+
+        2) The Robot class is used by Aibo. By extending from Robot,
+        we know Aibo is a Robot (and a robot will have a battery).
+        And by implementing Speakable, we know this robot can speak.
+
+        3) Polymorphism means "many forms". In this case we have
+        a Speakable interface, with different classes that
+        implement it. However, each class has its own "form"
+        of implementation. For example, a Dog's speak() method returns
+        "Woof woof!" whereas a Cat's returns "Meow!"
+     */
+
     private Main() {  }
 
     public static void main(final String[] args) {
