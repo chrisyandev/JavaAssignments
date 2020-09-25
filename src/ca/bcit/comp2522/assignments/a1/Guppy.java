@@ -92,7 +92,7 @@ public class Guppy {
         numberOfGuppiesBorn++;
         identificationNumber = numberOfGuppiesBorn;
         genus = capitalize(newGenus);
-        species = newSpecies.toLowerCase();
+        species = newSpecies.trim().toLowerCase();
         ageInWeeks = (newAgeInWeeks < 0) ? 0 : newAgeInWeeks;
         isFemale = newIsFemale;
         isAlive = true;
@@ -108,11 +108,12 @@ public class Guppy {
 
     /* Capitalizes the first letter of a string. */
     private String capitalize(final String s) {
-        if (s.length() == 1) {
-            return s.toUpperCase();
+        String str = s.trim();
+        if (str.length() == 1) {
+            return str.toUpperCase();
         }
-        return s.substring(0, 1).toUpperCase()
-                + s.substring(1).toLowerCase();
+        return str.substring(0, 1).toUpperCase()
+                + str.substring(1).toLowerCase();
     }
 
     /** Adds a weeks to age. */
@@ -151,7 +152,7 @@ public class Guppy {
      * Gets guppy's gender.
      * @return true if female, false if male
      */
-    public boolean isFemale() {
+    public boolean getIsFemale() {
         return isFemale;
     }
 
@@ -167,7 +168,7 @@ public class Guppy {
      * Gets guppy's alive state.
      * @return true if alive, false if dead
      */
-    public boolean isAlive() {
+    public boolean getIsAlive() {
         return isAlive;
     }
 
