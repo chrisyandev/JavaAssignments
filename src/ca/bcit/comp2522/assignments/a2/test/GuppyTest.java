@@ -1,10 +1,12 @@
-package ca.bcit.comp2522.assignments.a2;
+package ca.bcit.comp2522.assignments.a2.test;
 
+import ca.bcit.comp2522.assignments.a2.Guppy;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
+
 
 import static org.junit.Assert.*;
+import org.junit.rules.*;
 
 public class GuppyTest {
 
@@ -19,11 +21,11 @@ public class GuppyTest {
 
         defaultGuppy = new Guppy();
         testGuppy = new Guppy(  "Poecilia",
-                "elegans",
-                1,
-                true,
-                3,
-                0.75);
+                                "elegans",
+                                1,
+                                true,
+                                3,
+                                0.75);
     }
 
     @Test
@@ -155,106 +157,106 @@ public class GuppyTest {
         assertTrue(fry.getGenus().equals("Poecilia"));
         assertTrue(fry.getSpecies().equals("elegans"));
     }
-    /*
-        @Test
-        public void createExceptionWithNoGenus() {
-            thrown.expect(IllegalArgumentException.class);
-            Guppy fry = new Guppy(null,
-                    "a",
-                    0,
-                    true,
-                    0 ,
-                    0.5);
-        }
 
-        @Test
-        public void createExceptionWithEmptyGenus() {
-            thrown.expect(IllegalArgumentException.class);
-            Guppy fry = new Guppy("    ",
-                    "a",
-                    0,
-                    true,
-                    0 ,
-                    0.5);
-        }
+    @Test
+    public void createExceptionWithNoGenus() {
+        thrown.expect(IllegalArgumentException.class);
+        Guppy fry = new Guppy(null,
+                "a",
+                0,
+                true,
+                0 ,
+                0.5);
+    }
 
-        @Test
-        public void createExceptionWithNoSpecies() {
-            thrown.expect(IllegalArgumentException.class);
-            Guppy fry = new Guppy("a",
-                    null,
-                    0,
-                    true,
-                    0 ,
-                    0.5);
-        }
+    @Test
+    public void createExceptionWithEmptyGenus() {
+        thrown.expect(IllegalArgumentException.class);
+        Guppy fry = new Guppy("    ",
+                "a",
+                0,
+                true,
+                0 ,
+                0.5);
+    }
 
-        @Test
-        public void createExceptionWithEmptySpecies() {
-            thrown.expect(IllegalArgumentException.class);
-            Guppy fry = new Guppy("a",
-                    "    ",
-                    0,
-                    true,
-                    0 ,
-                    0.5);
-        }
+    @Test
+    public void createExceptionWithNoSpecies() {
+        thrown.expect(IllegalArgumentException.class);
+        Guppy fry = new Guppy("a",
+                null,
+                0,
+                true,
+                0 ,
+                0.5);
+    }
 
-        @Test
-        public void createExceptionWithNegativeAgeInWeeks() {
-            thrown.expect(IllegalArgumentException.class);
-            Guppy fry = new Guppy("a",
-                    "b",
-                    -1,
-                    true,
-                    0 ,
-                    0.5);
-        }
+    @Test
+    public void createExceptionWithEmptySpecies() {
+        thrown.expect(IllegalArgumentException.class);
+        Guppy fry = new Guppy("a",
+                "    ",
+                0,
+                true,
+                0 ,
+                0.5);
+    }
 
-        @Test
-        public void createExceptionWithMaximumAgeInWeeks() {
-            thrown.expect(IllegalArgumentException.class);
-            Guppy fry = new Guppy("a",
-                    "b",
-                    50,
-                    true,
-                    0 ,
-                    0.5);
-        }
+    @Test
+    public void createExceptionWithNegativeAgeInWeeks() {
+        thrown.expect(IllegalArgumentException.class);
+        Guppy fry = new Guppy("a",
+                "b",
+                -1,
+                true,
+                0 ,
+                0.5);
+    }
 
-        @Test
-        public void createExceptionWithNegativeGenerationNumber() {
-            thrown.expect(IllegalArgumentException.class);
-            Guppy fry = new Guppy("a",
-                    "b",
-                    0,
-                    true,
-                    -1,
-                    0.5);
-        }
+    @Test
+    public void createExceptionWithMaximumAgeInWeeks() {
+        thrown.expect(IllegalArgumentException.class);
+        Guppy fry = new Guppy("a",
+                "b",
+                50,
+                true,
+                0 ,
+                0.5);
+    }
 
-        @Test
-        public void createExceptionWithNegativeHealthCoefficient() {
-            thrown.expect(IllegalArgumentException.class);
-            Guppy fry = new Guppy("a",
-                    "b",
-                    0,
-                    true,
-                    0,
-                    -0.5);
-        }
+    @Test
+    public void createExceptionWithNegativeGenerationNumber() {
+        thrown.expect(IllegalArgumentException.class);
+        Guppy fry = new Guppy("a",
+                "b",
+                0,
+                true,
+                -1,
+                0.5);
+    }
 
-        @Test
-        public void createExceptionWithOverlargeHealthCoefficient() {
-            thrown.expect(IllegalArgumentException.class);
-            Guppy fry = new Guppy("a",
-                    "b",
-                    0,
-                    true,
-                    0,
-                    1.01);
-        }
-    */
+    @Test
+    public void createExceptionWithNegativeHealthCoefficient() {
+        thrown.expect(IllegalArgumentException.class);
+        Guppy fry = new Guppy("a",
+                "b",
+                0,
+                true,
+                0,
+                -0.5);
+    }
+
+//    @Test
+//    public void createExceptionWithOverlargeHealthCoefficient() {
+//        thrown.expect(IllegalArgumentException.class);
+//        Guppy fry = new Guppy("a",
+//                "b",
+//                0,
+//                true,
+//                0,
+//                1.01);
+//    }
+
     @Test
     public void testIncrementAge() {
         int oldAge = testGuppy.getAgeInWeeks();

@@ -1,5 +1,6 @@
-package ca.bcit.comp2522.assignments.a1;
+package ca.bcit.comp2522.assignments.a1.test;
 
+import ca.bcit.comp2522.assignments.a1.Guppy;
 import org.junit.Rule;
 import org.junit.Test;
 

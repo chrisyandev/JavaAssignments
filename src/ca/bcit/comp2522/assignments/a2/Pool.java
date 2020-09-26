@@ -244,4 +244,16 @@ public class Pool {
     public static int getNumberCreated() {
         return numberOfPools;
     }
+
+    public boolean addGuppy(Guppy guppy) {
+        if (guppy == null) {
+            return false;
+        }
+        boolean added = guppiesInPool.add(guppy);
+        if (added) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

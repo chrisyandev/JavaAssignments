@@ -92,6 +92,24 @@ public class Guppy {
                  final int newAgeInWeeks, final boolean newIsFemale,
                  final int newGenerationNumber,
                  final double newHealthCoefficient) {
+        if (newGenus == null || newGenus.trim().equals("")) {
+            throw new IllegalArgumentException("Genus can't be null or empty.");
+        }
+        if (newAgeInWeeks >= MAXIMUM_AGE_IN_WEEKS) {
+            throw new IllegalArgumentException("Age in weeks must be less than maximum.");
+        }
+        if (newSpecies == null || newSpecies.trim().equals("")) {
+            throw new IllegalArgumentException("Species can't be null or empty.");
+        }
+        if (newAgeInWeeks < 0) {
+            throw new IllegalArgumentException("Age can't be negative.");
+        }
+        if (newHealthCoefficient < 0) {
+            throw new IllegalArgumentException("Health coefficient can't be negative.");
+        }
+        if (newGenerationNumber < 0) {
+            throw new IllegalArgumentException("Generation number can't be negative.");
+        }
         numberOfGuppiesBorn++;
         identificationNumber = numberOfGuppiesBorn;
         genus = capitalize(newGenus);
