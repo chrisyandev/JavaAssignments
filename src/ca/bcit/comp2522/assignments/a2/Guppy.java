@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.Random;
 
 /**
- * Guppy. Represents a distinct Guppy with realistic properties.
+ * Guppy. Represents a guppy with realistic properties.
  *
  * @author Chris Yan
  * @version 1.0
@@ -68,7 +68,9 @@ public class Guppy {
     /** The unique ID of this Guppy. */
     private int identificationNumber;
 
-    /** Constructor that sets the Guppy's properties to default values. */
+    /**
+     * Default constructor that sets the Guppy's properties to default values.
+     */
     public Guppy() {
         numberOfGuppiesBorn++;
         identificationNumber = numberOfGuppiesBorn;

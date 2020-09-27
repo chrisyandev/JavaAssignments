@@ -5,6 +5,12 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Random;
 
+/**
+ * Pool. Represents a small body of water.
+ *
+ * @author Chris Yan
+ * @version 1.0
+ */
 public final class Pool {
 
     /** Default Pool name. */
@@ -61,7 +67,8 @@ public final class Pool {
     private static int numberOfPools = 0;
 
     /**
-     * Constructor for a hot spring Pool that holds a collection of Guppies.
+     * Default constructor for a hot spring Pool that holds a
+     * collection of Guppies.
      */
     public Pool() {
         numberOfPools++;
