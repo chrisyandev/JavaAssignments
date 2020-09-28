@@ -64,6 +64,7 @@ public class Ecosystem {
 
     /** Sets up the simulation. */
     public void setupSimulation() {
+        reset();
         final int skookumchukPopulation = 300;
         final int squamishPopulation = 100;
         final int semiahmooPopulation = 200;
@@ -71,6 +72,9 @@ public class Ecosystem {
         Pool skookumchuk = new Pool("Skookumchuk", 3000, 42, 7.9, 0.9);
         Pool squamish = new Pool("Squamish", 15000, 39, 7.7, 0.85);
         Pool semiahmoo = new Pool("Semiahmoo", 4500, 37, 7.5, 0.85);
+        addPool(skookumchuk);
+        addPool(squamish);
+        addPool(semiahmoo);
 
         for (int i = 0; i < skookumchukPopulation; i++) {
             skookumchuk.addGuppy(createGuppy(
@@ -84,10 +88,6 @@ public class Ecosystem {
             semiahmoo.addGuppy(createGuppy(
                     "Poecilia", "reticulata", 15, 49, 0.0, 1.0, 0.35));
         }
-
-        pools.add(skookumchuk);
-        pools.add(squamish);
-        pools.add(semiahmoo);
     }
 
     /*
@@ -143,12 +143,18 @@ public class Ecosystem {
         for (Pool pool : pools) {
             diedOfOldAge += pool.incrementAges();
             numberRemoved += pool.removeDeadGuppies();
+
             starvedToDeath += pool.applyNutrientCoefficient();
             numberRemoved += pool.removeDeadGuppies();
+
             newFry += pool.spawn();
+
             crowdedOut += pool.adjustForCrowding();
             numberRemoved += pool.removeDeadGuppies();
         }
+        System.out.println("Died: "
+                + (diedOfOldAge + starvedToDeath + crowdedOut));
+        System.out.println("Removed: " + numberRemoved);
         if (diedOfOldAge + starvedToDeath + crowdedOut != numberRemoved) {
             System.out.println("Logic error: Number that died doesn't "
                     + "match number removed.");
@@ -159,12 +165,12 @@ public class Ecosystem {
         System.out.println("Deaths due to starvation: " + starvedToDeath);
         System.out.println("Deaths due to overcrowding: " + crowdedOut);
         System.out.println("Number of new fry: " + newFry);
-        System.out.println("--- List of Pools ---");
+        System.out.println("List of Pools:");
         for (Pool pool : pools) {
             System.out.println(pool.getName() + ", Population: "
                     + pool.getPopulation());
         }
         System.out.println("Total Population of Ecosystem: "
-                + getGuppyPopulation());
+                + getGuppyPopulation() + "\n");
     }
 }
