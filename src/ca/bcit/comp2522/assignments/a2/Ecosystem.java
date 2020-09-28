@@ -11,7 +11,7 @@ import java.util.Random;
  * @author Chris Yan
  * @version 1.0
  */
-public class Ecosystem {
+public final class Ecosystem {
 
     /** Collection of Pools. */
     private ArrayList<Pool> pools;
@@ -122,7 +122,7 @@ public class Ecosystem {
      * Runs weekly simulations multiple times.
      * @param numberOfWeeks number of weeks to simulate
      */
-    public void simulate(int numberOfWeeks) {
+    public void simulate(final int numberOfWeeks) {
         for (int i = 0; i < numberOfWeeks; i++) {
             simulateOneWeek(i + 1);
         }
@@ -133,7 +133,7 @@ public class Ecosystem {
      * Outputs simulation results for that week.
      * @param weekNum the week number the simulation is on
      */
-    public void simulateOneWeek(int weekNum) {
+    public void simulateOneWeek(final int weekNum) {
         int numberRemoved = 0;
         int diedOfOldAge = 0;
         int starvedToDeath = 0;

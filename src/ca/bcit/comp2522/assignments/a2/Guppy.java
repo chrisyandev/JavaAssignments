@@ -10,7 +10,7 @@ import java.util.Random;
  * @author Chris Yan
  * @version 1.0
  */
-public class Guppy {
+public final class Guppy {
 
     /** Determined age of young fish. In weeks. */
     public static final int YOUNG_FISH_AGE_IN_WEEKS = 10;

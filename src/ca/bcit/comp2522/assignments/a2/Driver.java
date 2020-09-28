@@ -8,12 +8,16 @@ import java.util.Scanner;
  * @author Chris Yan
  * @version 1.0
  */
-public class Driver {
+public final class Driver {
+
+    /* Utility classes should not have a public constructor */
+    private Driver() { }
+
     /**
      * Drives the program.
      * @param args unused
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         Scanner scan = new Scanner(System.in);
 
         Ecosystem ecosystem = new Ecosystem();
