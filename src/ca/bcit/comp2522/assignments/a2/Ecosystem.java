@@ -152,9 +152,6 @@ public class Ecosystem {
             crowdedOut += pool.adjustForCrowding();
             numberRemoved += pool.removeDeadGuppies();
         }
-        System.out.println("Died: "
-                + (diedOfOldAge + starvedToDeath + crowdedOut));
-        System.out.println("Removed: " + numberRemoved);
         if (diedOfOldAge + starvedToDeath + crowdedOut != numberRemoved) {
             System.out.println("Logic error: Number that died doesn't "
                     + "match number removed.");
