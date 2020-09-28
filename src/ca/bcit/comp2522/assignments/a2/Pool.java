@@ -478,9 +478,10 @@ public final class Pool {
         Iterator<Guppy> guppyIterator = guppiesInPool.iterator();
         int numOfTerminated = 0;
         double requiredVolumeLitres = getGuppyVolumeRequirementInLitres();
-        while (requiredVolumeLitres > volumeLitres) {
+        while (requiredVolumeLitres > volumeLitres
+                && guppyIterator.hasNext()) {
             double coefOfWeakest = 1.0;
-            int indexOfWeakest = 0;
+            int indexOfWeakest = -1;
             int indexOfIterator = -1;
             while (guppyIterator.hasNext()) {
                 Guppy guppy = guppyIterator.next();
@@ -493,10 +494,14 @@ public final class Pool {
                     }
                 }
             }
-            Guppy weakestGuppy = guppiesInPool.get(indexOfWeakest);
-            weakestGuppy.setIsAlive(false);
-            numOfTerminated++;
-            requiredVolumeLitres -= (weakestGuppy.getVolumeNeeded() / 1000);
+            // First makes sure a weakest Guppy was found before anything else
+            if (indexOfWeakest != -1) {
+                Guppy weakestGuppy = guppiesInPool.get(indexOfWeakest);
+                weakestGuppy.setIsAlive(false);
+                numOfTerminated++;
+                requiredVolumeLitres -= (
+                        weakestGuppy.getVolumeNeeded() / 1000);
+            }
         }
         return numOfTerminated;
     }
