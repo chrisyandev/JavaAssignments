@@ -17,14 +17,6 @@ public class SubtractionOperation extends AbstractOperation {
     }
 
     /**
-     * Gets the operator symbol.
-     * @return the operator symbol
-     */
-    public char getSymbol() {
-        return SUBTRACTION_CODE;
-    }
-
-    /**
      * Subtracts the second operand from the first operand.
      * @param operandA first operand
      * @param operandB second operand

@@ -17,14 +17,6 @@ public class MultiplicationOperation extends AbstractOperation {
     }
 
     /**
-     * Gets the operator symbol.
-     * @return the operator symbol
-     */
-    public char getSymbol() {
-        return MULTIPLICATION_CODE;
-    }
-
-    /**
      * Multiplies two operands.
      * @param operandA first operand
      * @param operandB second operand

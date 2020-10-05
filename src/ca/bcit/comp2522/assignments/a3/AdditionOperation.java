@@ -17,14 +17,6 @@ public class AdditionOperation extends AbstractOperation {
     }
 
     /**
-     * Gets the operator symbol.
-     * @return the operator symbol
-     */
-    public char getSymbol() {
-        return ADDITION_CODE;
-    }
-
-    /**
      * Adds two operands.
      * @param operandA first operand
      * @param operandB second operand

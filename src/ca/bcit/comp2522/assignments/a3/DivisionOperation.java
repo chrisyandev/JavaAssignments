@@ -17,14 +17,6 @@ public class DivisionOperation extends AbstractOperation {
     }
 
     /**
-     * Gets the operator symbol.
-     * @return the operator symbol
-     */
-    public char getSymbol() {
-        return DIVISION_OPERATION;
-    }
-
-    /**
      * Divides the first operand by the second operand.
      * @param operandA first operand
      * @param operandB second operand

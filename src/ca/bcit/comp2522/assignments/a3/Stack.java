@@ -36,8 +36,8 @@ public class Stack {
     }
 
     /**
-     * Gets the number of elements in the stack.
-     * @return the number of elements in the stack
+     * Gets the number of elements in the Stack.
+     * @return the number of elements in the Stack
      */
     public int size() {
         return count;
@@ -52,47 +52,44 @@ public class Stack {
     }
 
     /**
-     * Adds an element to the stack if there is space.
+     * Adds an element to the Stack if there is space.
      * @param value element to be added
-     * @throws StackOverflowException if the stack is full
+     * @throws StackOverflowException if the Stack is full
      */
     public void push(final int value) throws StackOverflowException {
         if (unused() == 0) {
             throw new StackOverflowException("This stack is full!");
-        } else {
-            stackValues[count] = value;
-            count++;
         }
+        stackValues[count] = value;
+        count++;
     }
 
     /**
-     * Removes the element at the top of the stack if it exists.
+     * Removes the element at the top of the Stack if it exists.
      * @return value of the removed element
-     * @throws StackUnderflowException if the stack is empty
+     * @throws StackUnderflowException if the Stack is empty
      */
     public int pop() throws StackUnderflowException {
         if (size() == 0) {
             throw new StackUnderflowException(
                     "Cannot call Stack.pop() on an empty stack!");
-        } else {
-            int popped = stackValues[count - 1];
-            stackValues[count - 1] = 0;
-            count--;
-            return popped;
         }
+        int popped = stackValues[count - 1];
+        stackValues[count - 1] = 0;
+        count--;
+        return popped;
     }
 
     /**
-     * Gets the value of the element on top of the stack.
+     * Gets the value of the element on top of the Stack.
      * @return the value of the top-most element
-     * @throws StackUnderflowException if the stack is empty
+     * @throws StackUnderflowException if the Stack is empty
      */
     public int peek() throws StackUnderflowException {
         if (size() == 0) {
             throw new StackUnderflowException(
                     "Cannot call Stack.peek() on an empty stack!");
-        } else {
-            return stackValues[count - 1];
         }
+        return stackValues[count - 1];
     }
 }
