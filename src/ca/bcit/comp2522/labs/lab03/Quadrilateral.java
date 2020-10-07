@@ -6,7 +6,7 @@ package ca.bcit.comp2522.labs.lab03;
  * @author Chris Yan
  * @version 1.0
  */
-public class Quadrilateral {
+public abstract class Quadrilateral {
 
     /** The top-left Point. */
     protected Point p1;
@@ -60,7 +60,7 @@ public class Quadrilateral {
      * Calculates the area.
      * @return the area
      */
-    protected double calculateArea() { return 0.0; };
+    protected abstract double calculateArea();
 
     /**
      * Provides a formatted output.
