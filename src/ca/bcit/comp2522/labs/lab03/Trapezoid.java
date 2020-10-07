@@ -58,6 +58,6 @@ public class Trapezoid extends Quadrilateral {
      * @return the area
      */
     protected double calculateArea() {
-        return (base1 + base2) * height / 2;
+        return (base1 + base2) * height / 2.0;
     }
 }
