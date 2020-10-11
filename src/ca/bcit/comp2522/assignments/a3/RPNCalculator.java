@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class RPNCalculator {
 
     /** The minimum size of the Stack. */
-    private static final int MIN_STACK_SIZE = 2;
+    public static final int MIN_STACK_SIZE = 2;
 
     /** Holds the Stack. */
     private Stack stack;
@@ -75,9 +75,12 @@ public class RPNCalculator {
     public int processFormula(final String formula)
             throws StackUnderflowException, StackOverflowException,
             InvalidOperationTypeException {
-        if (formula == null || formula.trim().equals("")) {
+        if (formula == null) {
             throw new IllegalArgumentException(
-                    "The string can't be null or empty");
+                    "The String can't be null");
+        }
+        if (formula.trim().equals("")) {
+            throw new StackUnderflowException("The String can't be empty");
         }
         Scanner scan = new Scanner(formula);
         Operation operation;
@@ -99,7 +102,7 @@ public class RPNCalculator {
      * @throws StackUnderflowException if the Stack is empty
      * @throws StackOverflowException if the Stack is full
      */
-    private void perform(final Operation operation)
+    public void perform(final Operation operation)
             throws StackUnderflowException, StackOverflowException {
         if (operation == null) {
             throw new IllegalArgumentException("Operation cannot be null!");
@@ -115,7 +118,7 @@ public class RPNCalculator {
      * @param operand the value to be pushed
      * @throws StackOverflowException if the Stack is full
      */
-    private void push(final int operand) throws StackOverflowException {
+    public void push(final int operand) throws StackOverflowException {
         if (stack.unused() == 0) {
             throw new StackOverflowException("The stack is full");
         }
