@@ -32,10 +32,7 @@ public class BookStoreFactory {
                     bookElement.getElementsByTagName("description").item(0);
             description = descriptionItem.getTextContent();
 
-            Element courseApplicable = (Element) bookElement
-                    .getElementsByTagName("courseapplicability").item(0);
-            NodeList courseList =
-                    courseApplicable.getElementsByTagName("course");
+            NodeList courseList = bookElement.getElementsByTagName("course");
             for (int i = 0; i < courseList.getLength(); i++) {
                 courses.add(new Course(courseList.item(i)));
             }
