@@ -15,22 +15,36 @@ public class BookStoreFactory {
 
     public class Book { // TODO: Change to private
 
-        private String name;
-        private String description;
-        private ArrayList<Course> courses;
-        private ArrayList<Author> authors;
+        private final Element bookElement;
+        private final String isbn;
+        private final String year;
+        private final String edition;
+        private final String name;
+        private final String description;
+        private final ArrayList<Course> courses;
+        private final ArrayList<Author> authors;
+        private final String publisher;
+        private final Price price;
+        private final Stock stock;
 
         public Book(Node bookItem) {
             courses = new ArrayList<>();
             authors = new ArrayList<>();
-            Element bookElement = (Element) bookItem;
+            bookElement = (Element) bookItem;
 
-            Node nameItem = bookElement.getElementsByTagName("name").item(0);
-            name = nameItem.getTextContent();
+            isbn = bookElement.getAttribute("isbn");
+            year = bookElement.getAttribute("year");
+            edition = bookElement.getAttribute("edition");
 
-            Node descriptionItem =
-                    bookElement.getElementsByTagName("description").item(0);
-            description = descriptionItem.getTextContent();
+            name = bookElement
+                    .getElementsByTagName("name")
+                    .item(0)
+                    .getTextContent();
+
+            description = bookElement
+                    .getElementsByTagName("description")
+                    .item(0)
+                    .getTextContent();
 
             NodeList courseList = bookElement.getElementsByTagName("course");
             for (int i = 0; i < courseList.getLength(); i++) {
@@ -40,6 +54,53 @@ public class BookStoreFactory {
             NodeList authorList = bookElement.getElementsByTagName("author");
             for (int i = 0; i < authorList.getLength(); i++) {
                 authors.add(new Author(authorList.item(i)));
+            }
+
+            publisher = bookElement
+                    .getElementsByTagName("publisher")
+                    .item(0)
+                    .getTextContent();
+
+            Node priceItem = bookElement.getElementsByTagName("price").item(0);
+            price = new Price(priceItem);
+
+            stock = new Stock();
+        }
+
+        private class Stock {
+            private String category;
+            private int copiesInStock;
+            private String coverImageURL;
+            private int availabilityDays;
+
+            public Stock() {
+                category = bookElement
+                        .getElementsByTagName("category")
+                        .item(0)
+                        .getTextContent();
+                copiesInStock = Integer.parseInt(bookElement
+                        .getElementsByTagName("copiesinstock")
+                        .item(0)
+                        .getTextContent());
+                coverImageURL = bookElement
+                        .getElementsByTagName("coverimage")
+                        .item(0)
+                        .getAttributes()
+                        .getNamedItem("url")
+                        .getTextContent();
+                availabilityDays = Integer.parseInt(bookElement
+                        .getElementsByTagName("availability")
+                        .item(0)
+                        .getAttributes()
+                        .getNamedItem("days")
+                        .getTextContent());
+            }
+
+            public String toString() {
+                return "category: " + category
+                        + "\ncopiesInStock: " + copiesInStock
+                        + "\ncoverImageURL: " + coverImageURL
+                        + "\navailabilityDays: " + availabilityDays;
             }
         }
 
@@ -64,8 +125,10 @@ public class BookStoreFactory {
 
             public Author(Node authorItem) {
                 NamedNodeMap authorAttr = authorItem.getAttributes();
-                firstName = authorAttr.getNamedItem("firstname").getTextContent();
-                lastName = authorAttr.getNamedItem("lastname").getTextContent();
+                firstName =
+                        authorAttr.getNamedItem("firstname").getTextContent();
+                lastName =
+                        authorAttr.getNamedItem("lastname").getTextContent();
             }
 
             public String toString() {
@@ -73,8 +136,30 @@ public class BookStoreFactory {
             }
         }
 
+        private class Price {
+            private String currency;
+            private float value;
+
+            public Price(Node priceItem) {
+                NamedNodeMap priceAttr = priceItem.getAttributes();
+                currency = priceAttr.getNamedItem("currency").getTextContent();
+                value = Float.parseFloat(priceItem.getTextContent());
+            }
+
+            public String toString() {
+                return "currency: " + currency + "\nvalue: " + value;
+            }
+        }
+
         public String toString() {
-            String out = "name: " + name + "\ndescription: " + description;
+            String out = "name: " + name
+                    + "\ndescription: " + description
+                    + "\nisbn: " + isbn
+                    + "\nyear: " + year
+                    + "\nedition: " + edition
+                    + "\npublisher: " + publisher
+                    + "\n- price -\n" +  price
+                    + "\n- stock -\n" + stock;
             out += "\n--- Courses ---";
             for (Course c : courses) {
                 out += "\n";
