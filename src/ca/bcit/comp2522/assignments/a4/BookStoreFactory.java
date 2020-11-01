@@ -1,16 +1,89 @@
 package ca.bcit.comp2522.assignments.a4;
 
 import org.w3c.dom.*;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class BookStoreFactory {
 
-    public BookStoreFactory() {
+    private static BookStoreFactory instance = null;
 
+    private BookStoreFactory() { }
+
+    public static BookStoreFactory getInstance() {
+        if (instance == null) {
+            instance = new BookStoreFactory();
+        }
+        return instance;
+    }
+
+    private Node createBook(Book bookIn, Document doc) throws ParserConfigurationException {
+        Element bookEl = doc.createElement("book");
+
+        bookEl.setAttribute("isbn", bookIn.isbn);
+        bookEl.setAttribute("year", bookIn.year);
+        bookEl.setAttribute("edition", bookIn.edition);
+
+        Element nameEl = doc.createElement("name");
+        nameEl.setTextContent(bookIn.name);
+        bookEl.appendChild(nameEl);
+
+        Element descEl = doc.createElement("description");
+        descEl.setTextContent(bookIn.description);
+        bookEl.appendChild(descEl);
+
+        Element courseAppEl = doc.createElement("courseapplicability");
+        for (Book.Course c : bookIn.courses) {
+            Element courseEl = doc.createElement("course");
+            courseEl.setAttribute("institute", c.institute);
+            courseEl.setTextContent(c.name);
+            courseAppEl.appendChild(courseEl);
+        }
+        return bookEl;
+    }
+
+    private Document assembleBookstore(String inputFile) throws ParserConfigurationException, IOException, SAXException {
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = dbf.newDocumentBuilder();
+        Document doc = builder.newDocument();
+
+        Element root = doc.createElement("bookstore");
+        doc.appendChild(root);
+
+        NodeList bookList = getDOM(inputFile).getElementsByTagName("book");
+        for (int i = 0; i < bookList.getLength(); i++) {
+            Node bookItem = createBook(new Book(bookList.item(i)), doc);
+            root.appendChild(bookItem);
+        }
+        return doc;
+    }
+
+    private void outputBookstore(Document doc, String outputFile) throws TransformerException {
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        DOMSource source = new DOMSource(doc);
+        StreamResult result = new StreamResult(new File(outputFile));
+
+        transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.setOutputProperty(OutputKeys.STANDALONE, "yes");
+
+        transformer.transform(source, result);
+    }
+
+    public void duplicateBookstore(String inputFile, String outputFile) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+        Document doc = assembleBookstore(inputFile);
+        outputBookstore(doc, outputFile);
     }
 
     public class Book { // TODO: Change to private
@@ -174,18 +247,13 @@ public class BookStoreFactory {
         }
     }
 
-    public Document getDOM(String fileName) {
-        try {
-            File fXmlFile = new File(fileName);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(fXmlFile);
-            doc.getDocumentElement().normalize();
-            return doc;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+    public Document getDOM(String fileName) throws ParserConfigurationException, IOException, SAXException {
+        File fXmlFile = new File(fileName);
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        Document doc = dBuilder.parse(fXmlFile);
+        doc.getDocumentElement().normalize();
+        return doc;
     }
 
 }
