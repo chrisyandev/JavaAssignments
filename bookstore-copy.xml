@@ -9,7 +9,7 @@
         <author firstname="Carole" lastname="Wade"/>
         <author firstname="Carol" lastname="Tavris"/>
         <publisher>Prentice Hall</publisher>
-        <price currency="CAN">110.0</price>
+        <price currency="CAN">110.00</price>
         <stock>
             <category>Psychology</category>
             <copiesinstock>10</copiesinstock>

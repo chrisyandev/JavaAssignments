@@ -63,7 +63,7 @@ public class BookStoreFactory {
 
         Element priceEl = doc.createElement("price");
         priceEl.setAttribute("currency", bookIn.price.currency);
-        priceEl.setTextContent(String.valueOf(bookIn.price.value));
+        priceEl.setTextContent(String.format("%.2f", bookIn.price.value));
         bookEl.appendChild(priceEl);
 
         Element stockEl = doc.createElement("stock");
@@ -120,7 +120,7 @@ public class BookStoreFactory {
         outputBookstore(doc, outputFile);
     }
 
-    public class Book { // TODO: Change to private
+    private class Book {
 
         private final Element bookElement;
         private final String isbn;
@@ -134,7 +134,7 @@ public class BookStoreFactory {
         private final Price price;
         private final Stock stock;
 
-        public Book(Node bookItem) {
+        Book(Node bookItem) {
             courses = new ArrayList<>();
             authors = new ArrayList<>();
             bookElement = (Element) bookItem;
@@ -180,7 +180,7 @@ public class BookStoreFactory {
             private String coverImageURL;
             private int availabilityDays;
 
-            public Stock() {
+            Stock() {
                 category = bookElement
                         .getElementsByTagName("category")
                         .item(0)
@@ -202,27 +202,16 @@ public class BookStoreFactory {
                         .getNamedItem("days")
                         .getTextContent());
             }
-
-            public String toString() {
-                return "category: " + category
-                        + "\ncopiesInStock: " + copiesInStock
-                        + "\ncoverImageURL: " + coverImageURL
-                        + "\navailabilityDays: " + availabilityDays;
-            }
         }
 
         private class Course {
             private String name;
             private String institute;
 
-            public Course(Node courseItem) {
+            Course(Node courseItem) {
                 name = courseItem.getTextContent();
                 NamedNodeMap courseAttr = courseItem.getAttributes();
                 institute = courseAttr.getNamedItem("institute").getTextContent();
-            }
-
-            public String toString() {
-                return name + " | " + institute;
             }
         }
 
@@ -230,16 +219,12 @@ public class BookStoreFactory {
             private String firstName;
             private String lastName;
 
-            public Author(Node authorItem) {
+            Author(Node authorItem) {
                 NamedNodeMap authorAttr = authorItem.getAttributes();
                 firstName =
                         authorAttr.getNamedItem("firstname").getTextContent();
                 lastName =
                         authorAttr.getNamedItem("lastname").getTextContent();
-            }
-
-            public String toString() {
-                return firstName + " " + lastName;
             }
         }
 
@@ -247,41 +232,15 @@ public class BookStoreFactory {
             private String currency;
             private float value;
 
-            public Price(Node priceItem) {
+            Price(Node priceItem) {
                 NamedNodeMap priceAttr = priceItem.getAttributes();
                 currency = priceAttr.getNamedItem("currency").getTextContent();
                 value = Float.parseFloat(priceItem.getTextContent());
             }
-
-            public String toString() {
-                return "currency: " + currency + "\nvalue: " + value;
-            }
-        }
-
-        public String toString() {
-            String out = "name: " + name
-                    + "\ndescription: " + description
-                    + "\nisbn: " + isbn
-                    + "\nyear: " + year
-                    + "\nedition: " + edition
-                    + "\npublisher: " + publisher
-                    + "\n- price -\n" +  price
-                    + "\n- stock -\n" + stock;
-            out += "\n--- Courses ---";
-            for (Course c : courses) {
-                out += "\n";
-                out += c;
-            }
-            out +="\n--- Authors ---";
-            for (Author a : authors) {
-                out += "\n";
-                out += a;
-            }
-            return out;
         }
     }
 
-    public Document getDOM(String fileName) throws ParserConfigurationException, IOException, SAXException {
+    private Document getDOM(String fileName) throws ParserConfigurationException, IOException, SAXException {
         File fXmlFile = new File(fileName);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
