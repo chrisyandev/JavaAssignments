@@ -48,6 +48,40 @@ public class BookStoreFactory {
             courseEl.setTextContent(c.name);
             courseAppEl.appendChild(courseEl);
         }
+        bookEl.appendChild(courseAppEl);
+
+        for (Book.Author a : bookIn.authors) {
+            Element authorEl = doc.createElement("author");
+            authorEl.setAttribute("firstname", a.firstName);
+            authorEl.setAttribute("lastname", a.lastName);
+            bookEl.appendChild(authorEl);
+        }
+
+        Element publishEl = doc.createElement("publisher");
+        publishEl.setTextContent(bookIn.publisher);
+        bookEl.appendChild(publishEl);
+
+        Element priceEl = doc.createElement("price");
+        priceEl.setAttribute("currency", bookIn.price.currency);
+        priceEl.setTextContent(String.valueOf(bookIn.price.value));
+        bookEl.appendChild(priceEl);
+
+        Element stockEl = doc.createElement("stock");
+        Element categoryEl = doc.createElement("category");
+        Element copiesEl = doc.createElement("copiesinstock");
+        Element coverEl = doc.createElement("coverimage");
+        Element availEl = doc.createElement("availability");
+        categoryEl.setTextContent(bookIn.stock.category);
+        copiesEl.setTextContent(String.valueOf(bookIn.stock.copiesInStock));
+        coverEl.setAttribute("url", bookIn.stock.coverImageURL);
+        availEl.setAttribute(
+                "days", String.valueOf(bookIn.stock.availabilityDays));
+        stockEl.appendChild(categoryEl);
+        stockEl.appendChild(copiesEl);
+        stockEl.appendChild(coverEl);
+        stockEl.appendChild(availEl);
+        bookEl.appendChild(stockEl);
+
         return bookEl;
     }
 
