@@ -26,6 +26,20 @@ public class BookStoreFactory {
         return instance;
     }
 
+    public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+        BookStoreFactory bsf = BookStoreFactory.getInstance();
+        bsf.duplicateBookstore("bookstore.xml", "bookstore-copy.xml");
+    }
+
+    private Document getDOM(String fileName) throws ParserConfigurationException, IOException, SAXException {
+        File fXmlFile = new File(fileName);
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        Document doc = dBuilder.parse(fXmlFile);
+        doc.getDocumentElement().normalize();
+        return doc;
+    }
+
     private Node createBook(Book bookIn, Document doc) throws ParserConfigurationException {
         Element bookEl = doc.createElement("book");
 
@@ -61,10 +75,12 @@ public class BookStoreFactory {
         publishEl.setTextContent(bookIn.publisher);
         bookEl.appendChild(publishEl);
 
-        Element priceEl = doc.createElement("price");
-        priceEl.setAttribute("currency", bookIn.price.currency);
-        priceEl.setTextContent(String.format("%.2f", bookIn.price.value));
-        bookEl.appendChild(priceEl);
+        for (Book.Price p : bookIn.prices) {
+            Element priceEl = doc.createElement("price");
+            priceEl.setAttribute("currency", p.currency);
+            priceEl.setTextContent(String.format("%.2f", p.value));
+            bookEl.appendChild(priceEl);
+        }
 
         Element stockEl = doc.createElement("stock");
         Element categoryEl = doc.createElement("category");
@@ -76,7 +92,13 @@ public class BookStoreFactory {
         coverEl.setAttribute("url", bookIn.stock.coverImageURL);
         availEl.setAttribute(
                 "days", String.valueOf(bookIn.stock.availabilityDays));
+
         stockEl.appendChild(categoryEl);
+        if (bookIn.stock.subcategory != null) {
+            Element subcategoryEl = doc.createElement("subcategory");
+            subcategoryEl.setTextContent(bookIn.stock.subcategory);
+            stockEl.appendChild(subcategoryEl);
+        }
         stockEl.appendChild(copiesEl);
         stockEl.appendChild(coverEl);
         stockEl.appendChild(availEl);
@@ -131,12 +153,13 @@ public class BookStoreFactory {
         private final ArrayList<Course> courses;
         private final ArrayList<Author> authors;
         private final String publisher;
-        private final Price price;
+        private final ArrayList<Price> prices;
         private final Stock stock;
 
         Book(Node bookItem) {
             courses = new ArrayList<>();
             authors = new ArrayList<>();
+            prices = new ArrayList<>();
             bookElement = (Element) bookItem;
 
             isbn = bookElement.getAttribute("isbn");
@@ -168,39 +191,49 @@ public class BookStoreFactory {
                     .item(0)
                     .getTextContent();
 
-            Node priceItem = bookElement.getElementsByTagName("price").item(0);
-            price = new Price(priceItem);
+            NodeList priceList = bookElement.getElementsByTagName("price");
+            for (int i = 0; i < priceList.getLength(); i++) {
+                prices.add(new Price(priceList.item(i)));
+            }
 
             stock = new Stock();
         }
 
         private class Stock {
             private String category;
+            private String subcategory;
             private int copiesInStock;
             private String coverImageURL;
             private int availabilityDays;
 
             Stock() {
-                category = bookElement
-                        .getElementsByTagName("category")
-                        .item(0)
-                        .getTextContent();
-                copiesInStock = Integer.parseInt(bookElement
-                        .getElementsByTagName("copiesinstock")
-                        .item(0)
-                        .getTextContent());
-                coverImageURL = bookElement
-                        .getElementsByTagName("coverimage")
-                        .item(0)
-                        .getAttributes()
-                        .getNamedItem("url")
-                        .getTextContent();
-                availabilityDays = Integer.parseInt(bookElement
-                        .getElementsByTagName("availability")
-                        .item(0)
-                        .getAttributes()
-                        .getNamedItem("days")
-                        .getTextContent());
+                Node stockItem = bookElement.getElementsByTagName("stock").item(0);
+                NodeList children = stockItem.getChildNodes();
+                for (int i = 0; i < children.getLength(); i++) {
+                    Node n = children.item(i);
+                    if (n.getNodeType() == Node.ELEMENT_NODE) {
+                        Element child = (Element) n;
+                        switch (child.getNodeName()) {
+                            case "category":
+                                category = child.getTextContent();
+                                break;
+                            case "subcategory":
+                                subcategory = child.getTextContent();
+                                break;
+                            case "copiesinstock":
+                                copiesInStock = Integer.parseInt(
+                                        child.getTextContent());
+                                break;
+                            case "coverimage":
+                                coverImageURL = child.getAttribute("url");
+                                break;
+                            case "availability":
+                                availabilityDays = Integer.parseInt(
+                                        child.getAttribute("days"));
+                                break;
+                        }
+                    }
+                }
             }
         }
 
@@ -239,14 +272,4 @@ public class BookStoreFactory {
             }
         }
     }
-
-    private Document getDOM(String fileName) throws ParserConfigurationException, IOException, SAXException {
-        File fXmlFile = new File(fileName);
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        Document doc = dBuilder.parse(fXmlFile);
-        doc.getDocumentElement().normalize();
-        return doc;
-    }
-
 }

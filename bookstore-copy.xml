@@ -26,8 +26,10 @@
         <author firstname="Eric" lastname="Burke"/>
         <publisher>O&amp;Reilly</publisher>
         <price currency="CAN">59.95</price>
+        <price currency="US">39.95</price>
         <stock>
             <category>Programming</category>
+            <subcategory>Java Programming</subcategory>
             <copiesinstock>2</copiesinstock>
             <coverimage url="./images/java-and-xslt-cover.jpg"/>
             <availability days="2"/>
@@ -46,6 +48,7 @@
         <price currency="US">31.49</price>
         <stock>
             <category>Technology</category>
+            <subcategory>XML Schema</subcategory>
             <copiesinstock>2</copiesinstock>
             <coverimage url="./images/xml-schema-cover-.jpg"/>
             <availability days="4"/>
