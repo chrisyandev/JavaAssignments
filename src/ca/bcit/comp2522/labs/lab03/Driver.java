@@ -26,17 +26,9 @@ public final class Driver {
         Quadrilateral quad4 = new Rectangle(new Point(0, 4),
                 new Point(8, 4), new Point(8, 0), new Point(0, 0));
 
-        if (quad1.getClass() == Trapezoid.class) {
-            System.out.println("Trapezoid area: " + quad1.calculateArea());
-        }
-        if (quad2.getClass() == Parallelogram.class) {
-            System.out.println("Parallelogram area: " + quad2.calculateArea());
-        }
-        if (quad3.getClass() == Square.class) {
-            System.out.println("Square area: " + quad3.calculateArea());
-        }
-        if (quad4.getClass() == Rectangle.class) {
-            System.out.println("Rectangle area: " + quad4.calculateArea());
-        }
+        System.out.println("Trapezoid area: " + quad1.calculateArea());
+        System.out.println("Parallelogram area: " + quad2.calculateArea());
+        System.out.println("Square area: " + quad3.calculateArea());
+        System.out.println("Rectangle area: " + quad4.calculateArea());
     }
 }
