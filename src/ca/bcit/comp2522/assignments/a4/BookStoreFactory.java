@@ -249,8 +249,8 @@ public class BookStoreFactory {
         }
 
         private class Author {
-            private String firstName;
-            private String lastName;
+            private final String firstName;
+            private final String lastName;
 
             Author(Node authorItem) {
                 NamedNodeMap authorAttr = authorItem.getAttributes();
