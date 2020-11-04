@@ -13,12 +13,27 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class BookStoreFactory {
+/**
+ * BookStoreFactory. Extracts DOM objects from an XML file,
+ * gets the attributes and text content, creates appropriate
+ * classes to store the data, uses the classes to create DOM
+ * objects which get outputted into a new XML file.
+ *
+ * @author Chris Yan
+ * @version 1.0
+ */
+public final class BookStoreFactory {
 
+    /** Holds the single instance of BookStoreFactory. */
     private static BookStoreFactory instance = null;
 
+    /* Prevents creating more than one instance */
     private BookStoreFactory() { }
 
+    /**
+     * Gets the single instance of BookStoreFactory.
+     * @return single instance of BookStoreFactory
+     */
     public static BookStoreFactory getInstance() {
         if (instance == null) {
             instance = new BookStoreFactory();
@@ -26,12 +41,32 @@ public class BookStoreFactory {
         return instance;
     }
 
-    public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    /**
+     * Drives the program.
+     *
+      * @param args unused
+     * @throws IOException
+     * @throws SAXException
+     * @throws ParserConfigurationException
+     * @throws TransformerException
+     */
+    public static void main(final String[] args) throws IOException,
+            SAXException, ParserConfigurationException, TransformerException {
         BookStoreFactory bsf = BookStoreFactory.getInstance();
         bsf.duplicateBookstore("bookstore.xml", "bookstore-copy.xml");
     }
 
-    private Document getDOM(String fileName) throws ParserConfigurationException, IOException, SAXException {
+    /**
+     * Parses the XML file into a Document object.
+     *
+     * @param fileName the XML file name
+     * @return a Document object
+     * @throws ParserConfigurationException
+     * @throws IOException
+     * @throws SAXException
+     */
+    private Document getDOM(final String fileName)
+            throws ParserConfigurationException, IOException, SAXException {
         File fXmlFile = new File(fileName);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -40,7 +75,16 @@ public class BookStoreFactory {
         return doc;
     }
 
-    private Node createBook(Book bookIn, Document doc) throws ParserConfigurationException {
+    /**
+     * Constructs a DOM representation of a book in memory.
+     *
+     * @param bookIn a Book object
+     * @param doc the Document to be written to
+     * @return a book Element
+     * @throws ParserConfigurationException
+     */
+    private Node createBook(final Book bookIn, final Document doc)
+            throws ParserConfigurationException {
         Element bookEl = doc.createElement("book");
 
         bookEl.setAttribute("isbn", bookIn.isbn);
@@ -107,7 +151,8 @@ public class BookStoreFactory {
         return bookEl;
     }
 
-    private Document assembleBookstore(String inputFile) throws ParserConfigurationException, IOException, SAXException {
+    private Document assembleBookstore(final String inputFile)
+            throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = dbf.newDocumentBuilder();
         Document doc = builder.newDocument();
@@ -123,8 +168,10 @@ public class BookStoreFactory {
         return doc;
     }
 
-    private void outputBookstore(Document doc, String outputFile) throws TransformerException {
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+    private void outputBookstore(final Document doc, final String outputFile)
+            throws TransformerException {
+        TransformerFactory transformerFactory =
+                TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         DOMSource source = new DOMSource(doc);
         StreamResult result = new StreamResult(new File(outputFile));
@@ -137,7 +184,20 @@ public class BookStoreFactory {
         transformer.transform(source, result);
     }
 
-    public void duplicateBookstore(String inputFile, String outputFile) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+    /**
+     * Calls methods to clone the XML file.
+     *
+     * @param inputFile the input file name
+     * @param outputFile the output file name
+     * @throws IOException
+     * @throws SAXException
+     * @throws ParserConfigurationException
+     * @throws TransformerException
+     */
+    public void duplicateBookstore(final String inputFile,
+                                   final String outputFile)
+            throws IOException, SAXException, ParserConfigurationException,
+            TransformerException {
         Document doc = assembleBookstore(inputFile);
         outputBookstore(doc, outputFile);
     }
@@ -156,7 +216,7 @@ public class BookStoreFactory {
         private final ArrayList<Price> prices;
         private final Stock stock;
 
-        Book(Node bookItem) {
+        Book(final Node bookItem) {
             courses = new ArrayList<>();
             authors = new ArrayList<>();
             prices = new ArrayList<>();
@@ -207,7 +267,8 @@ public class BookStoreFactory {
             private int availabilityDays;
 
             Stock() {
-                Node stockItem = bookElement.getElementsByTagName("stock").item(0);
+                Node stockItem =
+                        bookElement.getElementsByTagName("stock").item(0);
                 NodeList children = stockItem.getChildNodes();
                 for (int i = 0; i < children.getLength(); i++) {
                     Node n = children.item(i);
@@ -231,6 +292,8 @@ public class BookStoreFactory {
                                 availabilityDays = Integer.parseInt(
                                         child.getAttribute("days"));
                                 break;
+                            default:
+                                // Nothing needs to be done
                         }
                     }
                 }
@@ -241,10 +304,11 @@ public class BookStoreFactory {
             private String name;
             private String institute;
 
-            Course(Node courseItem) {
+            Course(final Node courseItem) {
                 name = courseItem.getTextContent();
                 NamedNodeMap courseAttr = courseItem.getAttributes();
-                institute = courseAttr.getNamedItem("institute").getTextContent();
+                institute = courseAttr
+                        .getNamedItem("institute").getTextContent();
             }
         }
 
@@ -252,7 +316,7 @@ public class BookStoreFactory {
             private final String firstName;
             private final String lastName;
 
-            Author(Node authorItem) {
+            Author(final Node authorItem) {
                 NamedNodeMap authorAttr = authorItem.getAttributes();
                 firstName =
                         authorAttr.getNamedItem("firstname").getTextContent();
@@ -265,7 +329,7 @@ public class BookStoreFactory {
             private String currency;
             private float value;
 
-            Price(Node priceItem) {
+            Price(final Node priceItem) {
                 NamedNodeMap priceAttr = priceItem.getAttributes();
                 currency = priceAttr.getNamedItem("currency").getTextContent();
                 value = Float.parseFloat(priceItem.getTextContent());
