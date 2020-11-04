@@ -1,12 +1,20 @@
 package ca.bcit.comp2522.labs.lab04;
 
 import java.awt.*;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
 
+/**
+ * TelephonePanel. Represents a user interface for interacting
+ * with a telephone panel.
+ *
+ * @author Chris Yan
+ * @version 1.0
+ */
 public class TelephonePanel extends JPanel {
 
+    /** Constructs the telephone panel. */
     public TelephonePanel() {
         this.setLayout(new BorderLayout());
 
@@ -33,18 +41,20 @@ public class TelephonePanel extends JPanel {
 
         KeyPadListener kpListener = new KeyPadListener();
         Component[] buttons = keypad.getComponents();
+        // Adds an ActionListener to every button
         for (Component c : buttons) {
             if (c.getClass() == Button.class) {
                 Button button = (Button) c;
+                // Different ActionListeners for non-numeric buttons
                 if (button.getLabel().equals("*")) {
                     button.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
+                        public void actionPerformed(final ActionEvent e) {
                             System.out.println("key pressed: *");
                         }
                     });
                 } else if (button.getLabel().equals("#")) {
                     button.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
+                        public void actionPerformed(final ActionEvent e) {
                             System.out.println("key pressed: #");
                         }
                     });
@@ -55,8 +65,9 @@ public class TelephonePanel extends JPanel {
         }
     }
 
+    /** Represents an ActionListener for keypad number buttons. */
     class KeyPadListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(final ActionEvent e) {
             if (e.getSource().getClass() == Button.class) {
                 Button button = (Button) e.getSource();
                 int num = Integer.parseInt(button.getLabel());
