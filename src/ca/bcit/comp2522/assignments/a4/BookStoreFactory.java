@@ -56,15 +56,7 @@ public final class BookStoreFactory {
         bsf.duplicateBookstore("bookstore.xml", "bookstore-copy.xml");
     }
 
-    /**
-     * Parses the XML file into a Document object.
-     *
-     * @param fileName the XML file name
-     * @return a Document object
-     * @throws ParserConfigurationException
-     * @throws IOException
-     * @throws SAXException
-     */
+    /* Parses the XML file into a Document object */
     private Document getDOM(final String fileName)
             throws ParserConfigurationException, IOException, SAXException {
         File fXmlFile = new File(fileName);
@@ -75,14 +67,7 @@ public final class BookStoreFactory {
         return doc;
     }
 
-    /**
-     * Constructs a DOM representation of a book in memory.
-     *
-     * @param bookIn a Book object
-     * @param doc the Document to be written to
-     * @return a book Element
-     * @throws ParserConfigurationException
-     */
+    /* Constructs a DOM representation of a book in memory */
     private Node createBook(final Book bookIn, final Document doc)
             throws ParserConfigurationException {
         Element bookEl = doc.createElement("book");
@@ -138,6 +123,7 @@ public final class BookStoreFactory {
                 "days", String.valueOf(bookIn.stock.availabilityDays));
 
         stockEl.appendChild(categoryEl);
+        // It is possible for a subcategory to not exist
         if (bookIn.stock.subcategory != null) {
             Element subcategoryEl = doc.createElement("subcategory");
             subcategoryEl.setTextContent(bookIn.stock.subcategory);
@@ -151,6 +137,10 @@ public final class BookStoreFactory {
         return bookEl;
     }
 
+    /*
+    Creates the same book nodes in the original XML file and adds them
+    to a bookstore node which is added to a Document
+    */
     private Document assembleBookstore(final String inputFile)
             throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -168,6 +158,7 @@ public final class BookStoreFactory {
         return doc;
     }
 
+    /* Outputs the Document to a new XML file */
     private void outputBookstore(final Document doc, final String outputFile)
             throws TransformerException {
         TransformerFactory transformerFactory =
@@ -202,20 +193,49 @@ public final class BookStoreFactory {
         outputBookstore(doc, outputFile);
     }
 
+    /*
+    To hold the node and related nodes' text
+    content and/or attributes
+    */
     private class Book {
 
+        /** Holds a book Element. */
         private final Element bookElement;
+
+        /** Holds the book's ISBN. */
         private final String isbn;
+
+        /** Holds the book's year. */
         private final String year;
+
+        /** Holds the book's edition. */
         private final String edition;
+
+        /** Holds the book's name. */
         private final String name;
+
+        /** Holds the book's description. */
         private final String description;
+
+        /** Holds the courses the book is for. */
         private final ArrayList<Course> courses;
+
+        /** Holds the book's authors. */
         private final ArrayList<Author> authors;
+
+        /** Holds the book's publisher. */
         private final String publisher;
+
+        /** Holds the book's price in different currencies. */
         private final ArrayList<Price> prices;
+
+        /** Holds data relating to the book's stock. */
         private final Stock stock;
 
+        /*
+        Extracts child nodes of a book node and gets their
+        text content and/or attributes
+        */
         Book(final Node bookItem) {
             courses = new ArrayList<>();
             authors = new ArrayList<>();
@@ -259,17 +279,34 @@ public final class BookStoreFactory {
             stock = new Stock();
         }
 
+        /*
+        To hold the node and related nodes' text
+        content and/or attributes
+        */
         private class Stock {
+
+            /** Holds category the book is in. */
             private String category;
+
+            /** Holds subcategory the book is in. */
             private String subcategory;
+
+            /** Holds number of copies in stock. */
             private int copiesInStock;
+
+            /** Holds the URL of the book's cover image. */
             private String coverImageURL;
+
+            /** Holds the number of days the book is available for. */
             private int availabilityDays;
 
+            /* Extracts data from nodes */
             Stock() {
                 Node stockItem =
                         bookElement.getElementsByTagName("stock").item(0);
                 NodeList children = stockItem.getChildNodes();
+                // If the node name matches what we are looking for,
+                // gets the content and/or attributes
                 for (int i = 0; i < children.getLength(); i++) {
                     Node n = children.item(i);
                     if (n.getNodeType() == Node.ELEMENT_NODE) {
@@ -300,10 +337,19 @@ public final class BookStoreFactory {
             }
         }
 
+        /*
+        To hold the node and related nodes' text
+        content and/or attributes
+        */
         private class Course {
+
+            /** Holds the course name. */
             private String name;
+
+            /** Holds the institute the course is taught at. */
             private String institute;
 
+            /* Extracts data from nodes */
             Course(final Node courseItem) {
                 name = courseItem.getTextContent();
                 NamedNodeMap courseAttr = courseItem.getAttributes();
@@ -312,10 +358,19 @@ public final class BookStoreFactory {
             }
         }
 
+        /*
+        To hold the node and related nodes' text
+        content and/or attributes
+        */
         private class Author {
+
+            /** Holds the author's first name. */
             private final String firstName;
+
+            /** Holds the author's last name. */
             private final String lastName;
 
+            /* Extracts data from nodes */
             Author(final Node authorItem) {
                 NamedNodeMap authorAttr = authorItem.getAttributes();
                 firstName =
@@ -325,10 +380,19 @@ public final class BookStoreFactory {
             }
         }
 
+        /*
+        To hold the node and related nodes' text
+        content and/or attributes
+        */
         private class Price {
+
+            /** Holds the price currency. */
             private String currency;
+
+            /** Holds the price value. */
             private float value;
 
+            /* Extracts data from nodes */
             Price(final Node priceItem) {
                 NamedNodeMap priceAttr = priceItem.getAttributes();
                 currency = priceAttr.getNamedItem("currency").getTextContent();
