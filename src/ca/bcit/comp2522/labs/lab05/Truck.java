@@ -1,75 +1,65 @@
 package ca.bcit.comp2522.labs.lab05;
 
-/*
- * Truck.java
+/**
+ * Truck. Represents a truck Vehicle.
+ *
+ * @author Chris Yan
+ * @version 2020
  */
-public class Truck {
+public class Truck extends Vehicle {
 
-    private String make;
-    private String model;
+    /** How much the truck can tow. */
     private int towingCapacity;
-    private int numPassengers;
-    private int topSpeed;
+
+    /** The truck mileage. */
     private int mileage;
 
-    /** Creates a new instance of Truck */
-    public Truck() {
-    }
-    public Truck(String make, String model, int towingCapacity, int numPassengers, int topSpeed, int mileage) {
-        this.make = make;
-        this.model = model;
+    /**
+     * Initializes the truck's properties.
+     * @param make
+     * @param model
+     * @param towingCapacity
+     * @param numPassengers
+     * @param topSpeed
+     * @param mileage
+     */
+    public Truck(final String make, final String model,
+                 final int towingCapacity, final int numPassengers,
+                 final int topSpeed, final int mileage) {
+        super(make, model, numPassengers, topSpeed);
         this.towingCapacity = towingCapacity;
-        this.numPassengers = numPassengers;
-        this.topSpeed = topSpeed;
         this.mileage = mileage;
     }
 
-    public String getMake() {
-        return make;
-    }
-
-    public void setMake(String make) {
-        this.make = make;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
+    /**
+     * Gets the truck's towing capacity.
+     * @return the towing capacity
+     */
     public int getTowingCapacity() {
         return towingCapacity;
     }
 
-    public void setTowingCapacity(int towingCapacity) {
+    /**
+     * Sets the truck's towing capacity.
+     * @param towingCapacity
+     */
+    public void setTowingCapacity(final int towingCapacity) {
         this.towingCapacity = towingCapacity;
     }
 
-    public int getNumPassengers() {
-        return numPassengers;
-    }
-
-    public void setNumPassengers(int numPassengers) {
-        this.numPassengers = numPassengers;
-    }
-
-    public int getTopSpeed() {
-        return topSpeed;
-    }
-
-    public void setTopSpeed(int topSpeed) {
-        this.topSpeed = topSpeed;
-    }
-
+    /**
+     * Gets the truck's mileage.
+     * @return the mileage
+     */
     public int getMileage() {
         return mileage;
     }
 
-    public void setMileage(int mileage) {
+    /**
+     * Sets the truck's mileage.
+     * @param mileage
+     */
+    public void setMileage(final int mileage) {
         this.mileage = mileage;
     }
-
 }

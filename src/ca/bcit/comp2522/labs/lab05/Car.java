@@ -1,65 +1,52 @@
 package ca.bcit.comp2522.labs.lab05;
 
-/*
- * Car.java
+/**
+ * Car. Represents a car Vehicle.
+ *
+ * @author Chris Yan
+ * @version 2020
  */
-public class Car {
+public class Car extends Vehicle {
 
-    private String make;
-    private String model;
-    private int numPassengers;
-    private int topSpeed;
+    /** The car's mileage. */
     private int mileage;
 
-    /** Creates a new instance of Car */
-    public Car() {
-    }
-    public Car(String make, String model, int numPassengers, int topSpeed, int mileage) {
-        this.make = make;
-        this.model = model;
-        this.numPassengers = numPassengers;
-        this.topSpeed = topSpeed;
+    /**
+     * Initializes the car's properties.
+     * @param make
+     * @param model
+     * @param numPassengers
+     * @param topSpeed
+     * @param mileage
+     */
+    public Car(final String make, final String model,
+               final int numPassengers, final int topSpeed,
+               final int mileage) {
+        super(make, model, numPassengers, topSpeed);
         this.mileage = mileage;
     }
 
-    public String getMake() {
-        return make;
-    }
-
-    public void setMake(String make) {
-        this.make = make;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public int getNumPassengers() {
-        return numPassengers;
-    }
-
-    public void setNumPassengers(int numPassengers) {
-        this.numPassengers = numPassengers;
-    }
-
-    public int getTopSpeed() {
-        return topSpeed;
-    }
-
-    public void setTopSpeed(int topSpeed) {
-        this.topSpeed = topSpeed;
-    }
-
+    /**
+     * Gets the car's mileage.
+     * @return the mileage
+     */
     public int getMileage() {
         return mileage;
     }
 
-    public void setMileage(int mileage) {
+    /**
+     * Sets the car's mileage.
+     * @param mileage
+     */
+    public void setMileage(final int mileage) {
         this.mileage = mileage;
     }
 
+    /**
+     * Formats the properties of Car.
+     * @return a String
+     */
+    public String toString() {
+        return super.toString() + "\nMileage: " + mileage;
+    }
 }

@@ -1,76 +1,65 @@
 package ca.bcit.comp2522.labs.lab05;
 
-/*
- * Motorcycle.java
+/**
+ * Motorcycle. Represents a motorcycle Vehicle.
+ *
+ * @author Chris Yan
+ * @version 2020
  */
-public class Motorcycle {
+public class Motorcycle extends Vehicle {
 
-    private String make;
-    private String model;
-    private int numPassengers;
-    private int topSpeed;
+    /** Mileage of the motorcycle. */
     private int mileage;
+
+    /** Loudness of the motorcycle in decibels. */
     private int decibels;
 
-    /** Creates a new instance of Motorcycle */
-    public Motorcycle() {
-    }
-    public Motorcycle(String make, String model, int numPassengers, int topSpeed, int mileage,int decibels) {
-        this.make = make;
-        this.model = model;
-        this.numPassengers = numPassengers;
-        this.topSpeed = topSpeed;
+    /**
+     * Initializes the motorcycle's properties.
+     * @param make
+     * @param model
+     * @param numPassengers
+     * @param topSpeed
+     * @param mileage
+     * @param decibels
+     */
+    public Motorcycle(final String make, final String model,
+                      final int numPassengers, final int topSpeed,
+                      final int mileage, final int decibels) {
+        super(make, model, numPassengers, topSpeed);
         this.mileage = mileage;
-        this.decibels= decibels;
+        this.decibels = decibels;
     }
 
-
-    public String getMake() {
-        return make;
-    }
-
-    public void setMake(String make) {
-        this.make = make;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public int getNumPassengers() {
-        return numPassengers;
-    }
-
-    public void setNumPassengers(int numPassengers) {
-        this.numPassengers = numPassengers;
-    }
-
-    public int getTopSpeed() {
-        return topSpeed;
-    }
-
-    public void setTopSpeed(int topSpeed) {
-        this.topSpeed = topSpeed;
-    }
-
+    /**
+     * Gets the motorcycle mileage.
+     * @return the mileage
+     */
     public int getMileage() {
         return mileage;
     }
 
-    public void setMileage(int mileage) {
+    /**
+     * Sets the motorcycle mileage.
+     * @param mileage
+     */
+    public void setMileage(final int mileage) {
         this.mileage = mileage;
     }
 
+    /**
+     * Gets the motorcycle's loudness in decibels.
+     * @return the loudness in decibels
+     */
     public int getDecibels() {
         return decibels;
     }
 
-    public void setDecibels(int decibels) {
+    /**
+     * Sets the motorcycle's loudness in decibels.
+     * @param decibels
+     */
+    public void setDecibels(final int decibels) {
         this.decibels = decibels;
     }
-
 }

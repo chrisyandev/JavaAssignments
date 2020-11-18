@@ -1,65 +1,44 @@
 package ca.bcit.comp2522.labs.lab05;
 
-/*
- * Submarine.java
+/**
+ * Submarine. Represents a submarine Vehicle.
+ *
+ * @author Chris Yan
+ * @version 2020
  */
-public class Submarine {
+public class Submarine extends Vehicle implements Submersible {
 
-    private String make;
-    private String model;
-    private int topSpeed;
-    private int numPassengers;
+    /** The max depth the submarine can travel. */
     private int maxDepth;
 
-    /** Creates a new instance of Submarine */
-    public Submarine() {
-    }
-    public Submarine(String make, String model, int topSpeed, int numPassengers, int maxDepth) {
-        this.make = make;
-        this.model = model;
-        this.topSpeed = topSpeed;
-        this.numPassengers = numPassengers;
+    /**
+     * Initializes the submarine's properties.
+     * @param make
+     * @param model
+     * @param topSpeed
+     * @param numPassengers
+     * @param maxDepth
+     */
+    public Submarine(final String make, final String model,
+                     final int topSpeed, final int numPassengers,
+                     final int maxDepth) {
+        super(make, model, numPassengers, topSpeed);
         this.maxDepth = maxDepth;
     }
 
-    public String getMake() {
-        return make;
-    }
-
-    public void setMake(String make) {
-        this.make = make;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public int getTopSpeed() {
-        return topSpeed;
-    }
-
-    public void setTopSpeed(int topSpeed) {
-        this.topSpeed = topSpeed;
-    }
-
-    public int getNumPassengers() {
-        return numPassengers;
-    }
-
-    public void setNumPassengers(int numPassengers) {
-        this.numPassengers = numPassengers;
-    }
-
+    /**
+     * Gets the submarine's max depth.
+     * @return the max depth
+     */
     public int getMaxDepth() {
         return maxDepth;
     }
 
-    public void setMaxDepth(int maxDepth) {
+    /**
+     * Sets the submarine's max depth.
+     * @param maxDepth
+     */
+    public void setMaxDepth(final int maxDepth) {
         this.maxDepth = maxDepth;
     }
-
 }

@@ -1,46 +1,43 @@
 package ca.bcit.comp2522.labs.lab05;
 
-/*
- * Garage.java
- */
 import java.util.*;
 
 /**
+ * Garage. Represents a garage that holds Vehicles.
  *
- * @author Jim
+ * @author Chris Yan
+ * @version 2020
  */
 public class Garage {
 
-    private ArrayList<Object> garage = null;
+    /** A list of Vehicles in the Garage. */
+    private ArrayList<Vehicle> garage = null;
 
-    /** Creates a new instance of Garage */
+    /** Creates a new instance of Garage. */
     public Garage() {
-        garage = new ArrayList<Object>();
+        garage = new ArrayList<Vehicle>();
     }
 
-    public void add(Object x) {
+    /**
+     * Adds a Vehicle to the Garage.
+     * @param x a Vehicle
+     */
+    public void add(final Vehicle x) {
         garage.add(x);
     }
 
+    /** Prints the inventory of Vehicles in the Garage. */
     public void report() {
         System.out.println("My garage has ...");
-        for (Object x:garage) {
+        for (Vehicle x:garage) {
             System.out.println(x.toString());
         }
 
-        System.out.print("If I filled them all, I could hold ");
+        System.out.print("\nIf I filled them all, I could hold ");
         int count = 0;
-        for (Object x:garage) {
-            if (x instanceof Car) {
-                Car car = (Car) x;
-                count += car.getNumPassengers();
-            }
-            if (x instanceof Truck) {
-                Truck truck = (Truck) x;
-                count += truck.getNumPassengers();
-            }
+        for (Vehicle x : garage) {
+            count += x.getNumPassengers();
         }
         System.out.println("" + count + " passengers");
     }
-
 }
