@@ -25,6 +25,9 @@ public class InventoryItem implements Sellable, Serializable {
         this.name = name;
         this.purchasePrice = purchasePrice;
         this.type = type;
+
+        sellable = false;
+        sold = false;
     }
 
     @Override
@@ -126,6 +129,11 @@ public class InventoryItem implements Sellable, Serializable {
 
     @Override
     public String toString() {
-        return "InventoryItem";
+        return "Stock Keeping Unit: " + SKU
+                + "\nInvoice Purchase Date: " + IPD
+                + "\nPurchase Price: " + purchasePrice
+                + "\nName of item: " + name
+                + "\nDescription of item: " + desc
+                + "\nType of item: " + type;
     }
 }

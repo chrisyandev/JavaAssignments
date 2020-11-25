@@ -1,6 +1,8 @@
 package ca.bcit.comp2522.assignments.a5;
 
-public interface Sellable {
+import java.io.Serializable;
+
+public interface Sellable extends Serializable {
 
     boolean isSellable();
 

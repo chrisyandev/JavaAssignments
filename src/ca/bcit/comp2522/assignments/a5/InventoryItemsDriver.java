@@ -1,21 +1,33 @@
 package ca.bcit.comp2522.assignments.a5;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 public class InventoryItemsDriver {
 
-    public static InventoryItem[] inventory = {
-            new RentalItem(new Date(2020, 1, 1), 12345L, "A comic book.", "Comic Book", 9.99, "Book", Condition.AVERAGE, 111L, 2.99),
-            new RentalItem(new Date(2020, 1, 1), 12345L, "A comic book.", "Comic Book", 9.99, "Book", Condition.GREAT, 222L, 2.99),
-            new RentalItem(new Date(2020, 1, 1), 12345L, "A comic book.", "Comic Book", 9.99, "Book", Condition.DAMAGED, 333L, 2.99)
-    };
+    public static ArrayList<InventoryItem> inventory = new ArrayList<>();
 
     public static void main(final String[] args) {
-        SalesItem comic = new SalesItem(new Date(2020, 1, 1), 12345L, "A comic book.", "Comic Book", 9.99, "Book", 19.99, 101L);
-        System.out.println(comic);
+        inventory.add(new RentalItem(new Date(2019, 1, 1),
+                12345L, "A comic book.", "Dash", 20.00,
+                "Book", Condition.AVERAGE, 2.99));
+        inventory.add(new RentalItem(new Date(2020, 2, 23),
+        76893L, "A movie on vampires.", "Vampire Love", 40.00,
+                "Movie", Condition.EXCELLENT, 4.99));
+        inventory.add(new RentalItem(new Date(2017, 5, 8),
+                19267L, "A role-playing game.", "Ultimate RPG",
+                70.00, "Game", Condition.DAMAGED, 7.99));
+        inventory.add(new SalesItem(new Date(2020, 10, 1), 68432L,
+                "An English dictionary.", "Oxford Dictionary",
+                40.00, "Book", 69.45));
+        inventory.add(new SalesItem(new Date(2019, 12, 17), 49211L,
+                "A first-person shooter", "The Soldier",
+                35.00, "Game", 56.99));
 
-        Rental rental = new Rental("No comments", new Date(2020, 1, 1), 222L);
-        System.out.println(rental.getConditionAfter());
-        System.out.println(((RentalItem) inventory[1]).getItems()[0].getComments());
+        RentalItem rentalItem = (RentalItem) inventory.get(0);
+        rentalItem.setItems(new Rental[] { new Rental("Was accidentally dropped.", new Date(2020, 10, 1), 101L) });
+        System.out.println(Arrays.toString(rentalItem.getItems()));
+
     }
 }

@@ -1,23 +1,31 @@
 package ca.bcit.comp2522.assignments.a5;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class RentalItem extends InventoryItem {
+public class RentalItem extends InventoryItem implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    private static long idCounter = 100L;
 
     private Condition currentCondition;
     private Rental[] items;
     private long rentalID;
     private double rentalPrice;
 
-    public RentalItem(Date IPD, long SKU, String desc, String name, double purchasePrice, String type, Condition currentCondition, long rentalID, double rentalPrice) {
+    public RentalItem(Date IPD, long SKU, String desc, String name, double purchasePrice, String type, Condition currentCondition, double rentalPrice) {
         super(IPD, SKU, desc, name, purchasePrice, type);
         this.currentCondition = currentCondition;
-        this.rentalID = rentalID;
         this.rentalPrice = rentalPrice;
-
         items = new Rental[] {};
+        rentalID = idCounter;
+        idCounter++;
+
+        if (currentCondition == Condition.EXCELLENT) {
+            super.setSellable(true);
+        } else {
+            super.setSellable(false);
+        }
     }
 
     public Condition getCurrentCondition() {
@@ -62,6 +70,8 @@ public class RentalItem extends InventoryItem {
 
     @Override
     public String toString() {
-        return "RentalItem";
+        return super.toString() + "\nRental ID: " + rentalID
+                + "\nRental price: " + rentalPrice
+                + "\nCurrent item condition: " + currentCondition;
     }
 }

@@ -1,6 +1,8 @@
 package ca.bcit.comp2522.assignments.a5;
 
-public enum Condition {
+import java.io.Serializable;
+
+public enum Condition implements Serializable {
     AVERAGE,
     POOR,
     EXCELLENT,

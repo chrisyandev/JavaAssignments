@@ -95,6 +95,10 @@ public class Rental implements Serializable {
 
     @Override
     public String toString() {
-        return "Rental";
+        return "Rental ID: " + rentalID
+                + "\nRental Date: " + date
+                + "\nCondition Before: " + conditionBefore
+                + "\nCondition After: " + conditionAfter
+                + "\nComments: " + comments;
     }
 }
