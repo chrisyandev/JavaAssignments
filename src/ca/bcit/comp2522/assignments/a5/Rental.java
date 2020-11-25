@@ -5,12 +5,30 @@ import java.util.Date;
 
 public class Rental implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private String comments;
     private Condition conditionAfter;
     private Condition conditionBefore;
     private Date date;
     private long rentalID;
-    private long serialVersionUID;
+
+    public Rental(String comments, Date date, long rentalID) {
+        this.comments = comments;
+        this.date = date;
+        this.rentalID = rentalID;
+
+        for (InventoryItem item : InventoryItemsDriver.inventory) {
+            if (item.getClass() == RentalItem.class) {
+                RentalItem rentalItem = (RentalItem) item;
+                if (rentalItem.getRentalID() == rentalID) {
+                    conditionBefore = rentalItem.getCurrentCondition();
+                    conditionAfter = conditionBefore;
+                    rentalItem.setItems(new Rental[] {this});
+                }
+            }
+        }
+    }
 
     public String getComments() {
         return comments;

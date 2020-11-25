@@ -5,16 +5,27 @@ import java.util.Date;
 
 public class InventoryItem implements Sellable, Serializable {
 
+    private static final long serialVersionUID = 1L;
+
+    /** Invoice Purchase Date. */
     private Date IPD;
     private long SKU;
     private String desc;
     private String name;
     private double purchasePrice;
-    private long serialVersionUID;
     private String type;
 
     boolean sellable;
     boolean sold;
+
+    public InventoryItem(Date IPD, long SKU, String desc, String name, double purchasePrice, String type) {
+        this.IPD = IPD;
+        this.SKU = SKU;
+        this.desc = desc;
+        this.name = name;
+        this.purchasePrice = purchasePrice;
+        this.type = type;
+    }
 
     @Override
     public boolean isSellable() {

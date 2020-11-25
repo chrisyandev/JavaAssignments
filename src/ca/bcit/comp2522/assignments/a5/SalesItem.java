@@ -1,10 +1,19 @@
 package ca.bcit.comp2522.assignments.a5;
 
+import java.util.Date;
+
 public class SalesItem extends InventoryItem {
+
+    private static final long serialVersionUID = 1L;
 
     private double salePrice;
     private long salesID;
-    private long serialVersionUID;
+
+    public SalesItem(Date IPD, long SKU, String desc, String name, double purchasePrice, String type, double salePrice, long salesID) {
+        super(IPD, SKU, desc, name, purchasePrice, type);
+        this.salePrice = salePrice;
+        this.salesID = salesID;
+    }
 
     public double getSalePrice() {
         return salePrice;
