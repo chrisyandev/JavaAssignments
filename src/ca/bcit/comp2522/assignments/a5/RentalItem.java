@@ -9,7 +9,11 @@ public class RentalItem extends InventoryItem implements Serializable {
     private static long idCounter = 100L;
 
     private Condition currentCondition;
+
+    /** Contains all Rentals this item has been part of. */
     private Rental[] items;
+
+    /** Unique rental identifier. */
     private long rentalID;
     private double rentalPrice;
 
@@ -68,6 +72,10 @@ public class RentalItem extends InventoryItem implements Serializable {
         this.rentalPrice = rentalPrice;
     }
 
+    /**
+     * Formats a String containing the object's state.
+     * @return a formatted String
+     */
     @Override
     public String toString() {
         return super.toString() + "\nRental ID: " + rentalID

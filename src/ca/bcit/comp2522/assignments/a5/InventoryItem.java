@@ -127,6 +127,10 @@ public class InventoryItem implements Sellable, Serializable {
         return result;
     }
 
+    /**
+     * Formats a String containing the object's state.
+     * @return a formatted String
+     */
     @Override
     public String toString() {
         return "Stock Keeping Unit: " + SKU

@@ -3,17 +3,41 @@ package ca.bcit.comp2522.assignments.a5;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Rental. Represents a transaction of renting one item.
+ *
+ * @author Chris Yan
+ * @version 2020
+ */
 public class Rental implements Serializable {
 
+    /* Used for serialization */
     private static final long serialVersionUID = 1L;
 
+    /** Comments regarding the rental. */
     private String comments;
+
+    /** Item condition after rental. */
     private Condition conditionAfter;
+
+    /** Item condition before rental. */
     private Condition conditionBefore;
+
+    /** Date of rental. */
     private Date date;
+
+    /** Unique rental identifier. */
     private long rentalID;
 
-    public Rental(String comments, Date date, long rentalID) {
+    /**
+     * Initializes the state and adds this Rental to the rented
+     * item's history of Rentals.
+     * @param comments comments about the rental
+     * @param date date of rental
+     * @param rentalID unique rental identifier
+     */
+    public Rental(final String comments, final Date date,
+                  final long rentalID) {
         this.comments = comments;
         this.date = date;
         this.rentalID = rentalID;
@@ -30,44 +54,86 @@ public class Rental implements Serializable {
         }
     }
 
+    /**
+     * Gets the comments.
+     * @return the comments
+     */
     public String getComments() {
         return comments;
     }
 
+    /**
+     * Gets item condition after rental.
+     * @return condition after rental
+     */
     public Condition getConditionAfter() {
         return conditionAfter;
     }
 
+    /**
+     * Gets item condition before rental.
+     * @return condition before rental
+     */
     public Condition getConditionBefore() {
         return conditionBefore;
     }
 
+    /**
+     * Gets the date of rental.
+     * @return date of rental
+     */
     public Date getDate() {
         return date;
     }
 
+    /**
+     * Gets the rental ID.
+     * @return rental ID
+     */
     public long getRentalID() {
         return rentalID;
     }
 
-    public void setComments(String comments) {
+    /**
+     * Sets the comments.
+     * @param comments
+     */
+    public void setComments(final String comments) {
         this.comments = comments;
     }
 
-    public void setConditionAfter(Condition conditionAfter) {
+    /**
+     * Sets the item condition after rental.
+     * @param conditionAfter
+     */
+    public void setConditionAfter(final Condition conditionAfter) {
         this.conditionAfter = conditionAfter;
     }
 
-    public void setConditionBefore(Condition conditionBefore) {
+    /**
+     * Sets the item condition before rental.
+     * @param conditionBefore
+     */
+    public void setConditionBefore(final Condition conditionBefore) {
         this.conditionBefore = conditionBefore;
     }
 
-    public void setRentalID(long rentalID) {
+    /**
+     * Sets the rental ID.
+     * @param rentalID
+     */
+    public void setRentalID(final long rentalID) {
         this.rentalID = rentalID;
     }
 
+    /**
+     * Checks if two objects are RentalItems.
+     * If they are, checks if they are equal based on their state.
+     * @param o the other object
+     * @return true if they are equal
+     */
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (o == null) {
             return false;
         }
@@ -83,6 +149,10 @@ public class Rental implements Serializable {
                 && other.rentalID == rentalID;
     }
 
+    /**
+     * Creates a hashcode based on some properties.
+     * @return a hash code
+     */
     @Override
     public int hashCode() {
         final int multiplier = 7;
@@ -93,6 +163,10 @@ public class Rental implements Serializable {
         return result;
     }
 
+    /**
+     * Formats a String containing the object's state.
+     * @return a formatted String
+     */
     @Override
     public String toString() {
         return "Rental ID: " + rentalID
