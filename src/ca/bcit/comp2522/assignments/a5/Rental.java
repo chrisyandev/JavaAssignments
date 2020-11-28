@@ -26,32 +26,25 @@ public class Rental implements Serializable {
     /** Date of rental. */
     private Date date;
 
-    /** Unique rental identifier. */
+    /** Unique RentalItem identifier. */
     private long rentalID;
 
     /**
-     * Initializes the state and adds this Rental to the rented
+     * Initializes the state. Assumes item will be returned
+     * in original condition. Adds this Rental to the rented
      * item's history of Rentals.
      * @param comments comments about the rental
      * @param date date of rental
-     * @param rentalID unique rental identifier
+     * @param rentalItem the item to be rented
      */
     public Rental(final String comments, final Date date,
-                  final long rentalID) {
+                  final RentalItem rentalItem) {
         this.comments = comments;
         this.date = date;
-        this.rentalID = rentalID;
-
-        for (InventoryItem item : InventoryItemsDriver.inventory) {
-            if (item.getClass() == RentalItem.class) {
-                RentalItem rentalItem = (RentalItem) item;
-                if (rentalItem.getRentalID() == rentalID) {
-                    conditionBefore = rentalItem.getCurrentCondition();
-                    conditionAfter = conditionBefore;
-                    rentalItem.setItems(new Rental[] {this});
-                }
-            }
-        }
+        rentalID = rentalItem.getRentalID();
+        conditionBefore = rentalItem.getCurrentCondition();
+        conditionAfter = conditionBefore;
+        rentalItem.setItems(new Rental[] {this});
     }
 
     /**
@@ -127,9 +120,9 @@ public class Rental implements Serializable {
     }
 
     /**
-     * Checks if two objects are RentalItems.
-     * If they are, checks if they are equal based on their state.
-     * @param o the other object
+     * Checks if two RentalItems are equal. If the Objects are
+     * RentalItems, checks if they are equal based on their properties.
+     * @param o the other Object
      * @return true if they are equal
      */
     @Override
