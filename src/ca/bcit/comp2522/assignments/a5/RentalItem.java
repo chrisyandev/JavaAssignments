@@ -30,8 +30,7 @@ public class RentalItem extends InventoryItem implements Serializable {
     private double rentalPrice;
 
     /**
-     * Initializes the state. Assumes item can be sold only if
-     * its condition is excellent.
+     * Initializes the state. Assumes item can be sold in any Condition.
      * @param IPD Invoice Purchase Date
      * @param SKU Stock Keeping Unit
      * @param desc item description
@@ -52,11 +51,7 @@ public class RentalItem extends InventoryItem implements Serializable {
         rentalID = idCounter;
         idCounter++;
 
-        if (currentCondition == Condition.EXCELLENT) {
-            super.setSellable(true);
-        } else {
-            super.setSellable(false);
-        }
+        super.setSellable(true);
     }
 
     /**
