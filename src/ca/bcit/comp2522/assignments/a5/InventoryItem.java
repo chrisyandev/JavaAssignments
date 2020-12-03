@@ -32,10 +32,10 @@ public class InventoryItem implements Sellable, Serializable {
     private String type;
 
     /** Whether item can be sold. */
-    boolean sellable;
+    private boolean sellable;
 
     /** Whether item is sold. */
-    boolean sold;
+    private boolean sold;
 
     /**
      * Initializes the state. Assumes item is just in inventory and
