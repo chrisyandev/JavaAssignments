@@ -47,11 +47,7 @@ public class TelephonePanel extends JPanel {
                 Button button = (Button) c;
                 // Different ActionListeners for non-numeric buttons
                 if (button.getLabel().equals("*")) {
-                    button.addActionListener(new ActionListener() {
-                        public void actionPerformed(final ActionEvent e) {
-                            System.out.println("key pressed: *");
-                        }
-                    });
+                    button.addActionListener(e -> System.out.println("key pressed: *"));
                 } else if (button.getLabel().equals("#")) {
                     button.addActionListener(new ActionListener() {
                         public void actionPerformed(final ActionEvent e) {
