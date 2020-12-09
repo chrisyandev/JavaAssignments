@@ -54,7 +54,7 @@ public class RPNCalculator {
                     + calculator.processFormula(argv[1]));
         } catch (final InvalidOperationTypeException ex) {
             System.err.println(
-                    "formula can only contain integers, +, -, *, and /");
+                    "formula can only contain integers, +, -, *, /, and %");
         } catch (final StackOverflowException ex) {
             System.err.println("too many operands in the formula, "
                     + "increase the stack size");
@@ -142,6 +142,8 @@ public class RPNCalculator {
                 return new MultiplicationOperation();
             case '/':
                 return new DivisionOperation();
+            case '%':
+                return new ModulusOperation();
             default:
                 throw new InvalidOperationTypeException(symbol);
         }
